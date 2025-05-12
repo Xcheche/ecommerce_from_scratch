@@ -13,6 +13,11 @@ def get_file_path(request, filename):
     directory = today.strftime('%Y/%m/%d')
     # Return the full file path
     return os.path.join(directory, filename)
+
+
+
+
+
 class Category(models.Model):
     name = models.CharField(max_length=150, null=False, blank=False)
     slug = models.CharField(max_length=150, null=False,blank=False)

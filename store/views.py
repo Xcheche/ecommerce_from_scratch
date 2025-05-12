@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from store .models import *
+from django.contrib import messages
 # Create your views here.
 
 
@@ -15,3 +16,17 @@ def collections(request):
         'category': category
     }
     return render(request, 'store/collections.html', context)
+
+
+def collectionsview(request, slug):
+    if(Category.objects.filter(slug=slug,status=0)):
+        products = Product.objects.filter(category__slug=slug)
+        category_name = Category.objects.filter(slug=slug).first()
+        context = {
+            'products': products,
+            'category_name': category_name
+        }
+        return render(request, 'store/products/index.html', context)
+    else:
+        messages.warning(request, "No such category found")
+        return redirect('collections')

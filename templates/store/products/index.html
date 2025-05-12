@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load humanize %}
+
+<div class="py-3 bg-primary">
+    <div class="container">
+        <a  class="text-white" href="/">Home  /</a>
+        <a class="text-white"  href="{% url 'collections' %}">Collections /</a>
+        <a class="text-white"  href="{% url 'collectionsview' category_name.slug %}">{{ category_name.name }}</a>/
+     
+    </div>
+</div>
+
+<!--Content-->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{ category_name.name }}</h1>
+            <hr>
+            <div class="row">
+                {% for item in products %}
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="#">
+                        <div class="card-body">
+                            <div class="category-image">
+                                <img src="{{ item.product_image.url }}" alt="category-image">
+                                <h4>{{ item.name }}</h4>
+                                <span class="float-start">
+                                    <del>{{ item.original_price| stringformat:"d"|intcomma }}</del>
+                                </span>
+                                <span class="float-end">{{ item.selling_price| stringformat:"d"|intcomma }}</span>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}
